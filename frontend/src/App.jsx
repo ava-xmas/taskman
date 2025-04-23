@@ -34,7 +34,7 @@ function App() {
   }, []);
 
   return (
-    <>Hello World</>
+    <>Hello World, this is new!</>
   )
 }
 
