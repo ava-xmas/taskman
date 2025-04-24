@@ -40,7 +40,8 @@ INSTALLED_APPS = [
     'rest_framework',
     'corsheaders',
     'tasks.apps.TasksConfig',
-
+    'home.apps.HomeConfig',
+    'rest_framework_simplejwt',
 ]
 
 # we are allowing django to talk to this particular url (on which our react app is made)

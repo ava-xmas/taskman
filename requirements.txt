@@ -6,3 +6,4 @@ vite:
 tailwindcss
 headlessui
 heroicons
+rest_framework_simplejwt
