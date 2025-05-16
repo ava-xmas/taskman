@@ -1,13 +1,11 @@
-from rest_framework.routers import DefaultRouter
+# from rest_framework.routers import DefaultRouter
 
-from django.urls import path, include
+# from django.urls import path, include
 
-
-
-# posts
+# # posts
 
 
-urlpatterns = [
-    path('home/', include('home.api.urls')), 
-   # path('tasks/', include('tasks.api.urls')), 
-]
+# urlpatterns = [
+#     path('home/', include('home.api.urls')), 
+#     path('tasks/', include('tasks.api.urls')), 
+# ]

@@ -39,7 +39,7 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
     'rest_framework',
     'corsheaders',
-    'tasks.apps.TasksConfig',
+    'tasks',
     'home.apps.HomeConfig',
     'rest_framework_simplejwt',
 ]
