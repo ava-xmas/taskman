@@ -27,8 +27,7 @@ function SignupPage() {
                 headers: headers,
                 body: JSON.stringify({ username, password}),
             });
-            if (!response.ok) {
-                
+            if (!response.ok) { 
                 const errorData = await response.json();
                 console.error("Registration error:", errorData);
                 alert("Error during registration. Check console for details.")
@@ -36,7 +35,6 @@ function SignupPage() {
                 //console.log('hello')
                 const result = await response.json();
                 setJSON('AUTH_KEY', result.access)
-                setJSON('is_admin', true)
                 alert('Regsitration successful');
             
             }
@@ -66,7 +64,7 @@ function SignupPage() {
                         type="submit"
                         className="bg-black w-40 h-20 rounded-md p-3 m-3 text-white"
                     >
-                        SUBMIT
+                        SIGNUP
                     </button>
                 </form>
             </div>
