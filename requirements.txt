@@ -6,3 +6,6 @@ vite:
 tailwindcss
 headlessui
 heroicons
+
+react-router
+react-router-dom

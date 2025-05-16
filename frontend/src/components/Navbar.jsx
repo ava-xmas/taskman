@@ -1,7 +1,10 @@
-import { Disclosure, DisclosureButton, DisclosurePanel, Menu, MenuButton, MenuItem, MenuItems } from '@headlessui/react'
-import { Bars3Icon, BellIcon, XMarkIcon } from '@heroicons/react/24/outline'
-import Button from './Button.jsx'
+import { Disclosure, DisclosureButton, DisclosurePanel, Menu, MenuButton, MenuItem, MenuItems } from '@headlessui/react';
+import { Bars3Icon, BellIcon, XMarkIcon } from '@heroicons/react/24/outline';
+import Button from './Button.jsx';
+import { useLocation } from 'react-router-dom';
+import React, { useEffect, useState } from 'react';
 
+// navigation items
 const navigation = [
     { name: 'Dashboard', href: '#', current: true },
     { name: 'Team', href: '#', current: false },
@@ -15,7 +18,25 @@ function classNames(...classes) {
 
 const buttonClassName = "rounded-md p-2 m-2 px-3 hover:bg-gray-700";
 
-function Navbar() {
+const Navbar = () => {
+
+    // creating an instance of location to detect the route
+    const location = useLocation();
+    console.log(location);
+
+    // converting title into stateful
+    const [title, setTitle] = useState("");
+
+    useEffect(() => {
+        if (location.pathname === "/") {
+            setTitle("");
+        } else if (location.pathname === "/dashboard") {
+            setTitle("Dashboard");
+        } else if (location.pathname === "/tasks") {
+            setTitle("Tasks");
+        }
+    }, [location]);
+
     return (
         <Disclosure as="nav" className="bg-gray-800">
             <div className="mx-auto max-w-8xl px-1 sm:px-3 lg:px-4">
@@ -34,6 +55,15 @@ function Navbar() {
                         <div className="hidden sm:ml-6 sm:block">
                             <div className="flex space-x-4">
                                 <span className="text-2xl text-white text-center">TaskMan</span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div className="flex flex-1 items-center justify-center sm:items-stretch sm:justify-start">
+
+                        <div className="hidden sm:ml-6 sm:block">
+                            <div className="flex space-x-4">
+                                <span className="text-2xl text-white text-center">{title}</span>
                             </div>
                         </div>
                     </div>

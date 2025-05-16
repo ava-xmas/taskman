@@ -7,17 +7,19 @@ import clsx from 'clsx'
 // pages
 import Layout from './pages/Layout.jsx'
 import LandingPage from './pages/LandingPage.jsx'
+import Dashboard from './pages/Dashboard.jsx'
 // routing
 import { BrowserRouter, Routes, Route } from 'react-router-dom';
+
+let isAuthorized = true;
 
 function App() {
   return (
     <BrowserRouter>
       <Routes>
         {/* route paths combine with the parent */}
-        <Route path='/' element={<Layout><LandingPage /></Layout>}>
-          <Route index element={<LandingPage />} />
-        </Route>
+        <Route path='/' element={<Layout><LandingPage /></Layout>} />
+        <Route path='/dashboard' element={<Layout><Dashboard /></Layout>} />
       </Routes>
     </BrowserRouter>
   )
