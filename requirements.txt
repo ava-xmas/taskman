@@ -11,3 +11,5 @@ react-router
 react-router-dom
 
 rest_framework_simplejwt
+
+flatpickr

@@ -1,5 +1,7 @@
 {
   "dependencies": {
-    "node": "^22.15.0"
+    "flatpickr": "^4.6.13",
+    "node": "^22.15.0",
+    "react-flatpickr": "^4.0.10"
   }
 }
