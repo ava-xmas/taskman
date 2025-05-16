@@ -9,6 +9,8 @@ import Layout from './pages/Layout.jsx'
 import LandingPage from './pages/LandingPage.jsx'
 import Dashboard from './pages/Dashboard.jsx'
 import TaskPage from './pages/TaskPage.jsx'
+import LoginPage from './pages/login.jsx'
+import SignupPage from './pages/signup.jsx'
 // routing
 import { BrowserRouter, Routes, Route } from 'react-router-dom';
 
@@ -22,6 +24,8 @@ function App() {
         <Route path='/' element={<Layout><LandingPage /></Layout>} />
         <Route path='/dashboard' element={<Layout><Dashboard /></Layout>} />
         <Route path='/tasks' element={<Layout><TaskPage /></Layout>} />
+        <Route path='/login' element={<LoginPage />}/>
+        <Route path='/signup' element={<SignupPage />}/>
       </Routes>
     </BrowserRouter>
   )
