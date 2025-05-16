@@ -1,5 +1,4 @@
 from rest_framework import serializers
-from ..models import User
 from rest_framework_simplejwt.tokens import AccessToken
 from rest_framework_simplejwt.authentication import JWTAuthentication
 from django.contrib.auth.models import User
