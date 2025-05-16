@@ -8,6 +8,7 @@ import clsx from 'clsx'
 import Layout from './pages/Layout.jsx'
 import LandingPage from './pages/LandingPage.jsx'
 import Dashboard from './pages/Dashboard.jsx'
+import TaskPage from './pages/TaskPage.jsx'
 // routing
 import { BrowserRouter, Routes, Route } from 'react-router-dom';
 
@@ -20,6 +21,7 @@ function App() {
         {/* route paths combine with the parent */}
         <Route path='/' element={<Layout><LandingPage /></Layout>} />
         <Route path='/dashboard' element={<Layout><Dashboard /></Layout>} />
+        <Route path='/tasks' element={<Layout><TaskPage /></Layout>} />
       </Routes>
     </BrowserRouter>
   )

@@ -1,4 +1,3 @@
-import Navbar from "../components/Navbar.jsx";
 import ButtonComponent from "../components/Button.jsx";
 
 const featureBullets = [
