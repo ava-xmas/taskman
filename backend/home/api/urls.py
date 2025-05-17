@@ -1,8 +1,9 @@
 from django.contrib import admin
 from django.urls import path, include
-from home import views as home_views
+from home.views import * 
+
 
 urlpatterns = [
-    path('register/', home_views.RegisterAPIView.as_view()),
-    path('login/', home_views.LoginAPIView.as_view()),
+    path('token/', JWTTokenObtainPairView.as_view()),
+    path('register/', RegisterAPIView.as_view()),
 ]
