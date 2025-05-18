@@ -1,4 +1,4 @@
-import axios from "axios";
+// import axios from "axios";
 import ButtonComponent from "../components/Button.jsx";
 
 function classNames(...classes) {
@@ -14,10 +14,13 @@ function SignupPage() {
         event.preventDefault();
         const username = event.target.username.value;
         const password = event.target.password.value;
-        
-        const headers = {'Content-Type':'application/json',
-        'Access-Control-Allow-Origin':'*',
-        'Access-Control-Allow-Methods':'POST,PATCH,OPTIONS'}
+
+        const headers = {
+            'Content-Type': 'application/json',
+            // using the below headers leads to cors error, apparently we're not supposed to be writing these here?
+            // 'Access-Control-Allow-Origin': '*',
+            // 'Access-Control-Allow-Methods': 'POST,PATCH,OPTIONS'
+        }
 
         try {
             //console.log("hello")
@@ -25,21 +28,22 @@ function SignupPage() {
                 statusCode: 200,
                 method: "POST",
                 headers: headers,
-                body: JSON.stringify({ username, password}),
+                body: JSON.stringify({ username, password }),
             });
-            if (!response.ok) { 
+            if (!response.ok) {
                 const errorData = await response.json();
                 console.error("Registration error:", errorData);
                 alert("Error during registration. Check console for details.")
             } else {
                 //console.log('hello')
                 const result = await response.json();
+                // storing AUTH_KEY in local storage
                 setJSON('AUTH_KEY', result.access)
                 alert('Regsitration successful');
-            
+
             }
         } catch (error) {
-           // console.log('bleh')
+            // console.log('bleh')
             console.error("Error:", error);
         }
     };

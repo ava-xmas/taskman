@@ -7,13 +7,15 @@ from rest_framework import status
 from .models import Task
 from .serializers import TaskSerializer
 from rest_framework import generics, permissions
+from .permissions import IsOwner
 
 # Create your views here.
-class TaskCreateAPIView(generics.ListCreateAPIView):
-    queryset = Task.objects.all()
+class TaskListCreateAPIView(generics.ListCreateAPIView):
+    queryset = Task.objects.all().order_by('-created_at')
     serializer_class = TaskSerializer
     permission_classes = [permissions.IsAuthenticated]
 
+    # authenticated users can only see their own tasks
     def get_queryset(self):
         user = self.request.user
         qs = super().get_queryset()
@@ -21,8 +23,16 @@ class TaskCreateAPIView(generics.ListCreateAPIView):
     
     def perform_create(self, serializer):
         serializer.save(owner=self.request.user)
+
+class TaskDetailView(generics.RetrieveUpdateDestroyAPIView):
+    queryset = Task.objects.all()
+    serializer_class = TaskSerializer
+    permission_classes = [permissions.IsAuthenticated, IsOwner]
     
+    def get_queryset(self):
+        return super().get_queryset().filter(owner=self.request.user)
     
+    # not needed post request because ListCreateAPIView alredy handles it for us
     #def post(self, request):
     #    serializer = TaskSerializer(data = request.data)
     #    if serializer.is_valid():

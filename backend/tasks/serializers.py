@@ -8,5 +8,10 @@ class TaskSerializer(serializers.ModelSerializer):
         fields = [
             'title',
             'description',
-            'created_at'
+            'created_at',
+            'deadline_date',
+            'deadline_time'
         ]
+        extra_kwargs = {
+            'title': {'required': True},
+        }

@@ -6,35 +6,53 @@ function setJSON(key, value) {
     window.localStorage.setItem(key, value);
 };
 function LoginPage() {
-    const loginApiUrl = "http://127.0.0.1:8000/api/home/login/";
+    const loginApiUrl = "http://127.0.0.1:8000/api/home/token/";
     const handleSubmit = async (event) => {
         event.preventDefault();
         const username = event.target.username.value;
         const password = event.target.password.value;
-        const headers = {'Content-Type':'application/json',
-            'Access-Control-Allow-Origin':'*',
-            'Access-Control-Allow-Methods':'POST,PATCH,OPTIONS'}
+        const headers = {
+            'Content-Type': 'application/json',
+            // 'Access-Control-Allow-Origin':'*',
+            // 'Access-Control-Allow-Methods':'POST,PATCH,OPTIONS'
+        }
+
         try {
             const response = await fetch(loginApiUrl, {
-                statusCode: 200, 
                 method: "POST",
-                headers: headers,
-                body: JSON.stringify({ username, password}),
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+                body: JSON.stringify({ username, password }),
             });
 
-            if (response.ok) {
-                console.log(response)
-                const result = await response.json();
-                alert('Login successful');
-                setJSON('AUTH_KEY', result.access);
-                
-            } else {
-                const errorData = await response.json();
-                console.error("Login error:", errorData);
-                alert("Error during login. Check console for details.");
+            const contentType = response.headers.get("content-type");
+
+            if (!response.ok) {
+                // safely try to parse error response if its JSON
+                if (contentType && contentType.includes("application/json")) {
+                    const errorData = await response.json();
+                    console.error("Login error:", errorData);
+                    alert("Login failed: " + (errorData.detail || "Check console."));
+                } else {
+                    const errorText = await response.text();
+                    console.error("Non-JSON login error", errorText);
+                    alert("Login failed: Non-JSON response.");
+                }
+                return;
             }
+
+            // on a successful login
+            const result = await response.json();
+
+            // save the token and the username
+            setJSON('AUTH_KEY', result.access);
+            setJSON('USER_NAME', username);
+
+            alert("Login Sucsessfull");
         } catch (error) {
-            console.error("Error", error);
+            console.error("Network or server error: ", error);
+            alert("A network error occured, check console for details.");
         }
     }
     return (
