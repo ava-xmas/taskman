@@ -3,6 +3,8 @@
 import { Disclosure, DisclosureButton, DisclosurePanel, Menu, MenuButton, MenuItem, MenuItems } from '@headlessui/react'
 import { ChevronLeftIcon, ChevronRightIcon, RectangleStackIcon, ClipboardDocumentIcon } from '@heroicons/react/20/solid'
 
+import { Link } from 'react-router-dom';
+
 const sidebarMenu = [
     { name: 'Dashboard', href: "#", current: false },
     { name: 'Tasks', href: "#", current: true },
@@ -24,8 +26,12 @@ export default function SidebarComponent() {
                     <h6 className="align-middle text-left text-gray-300 my-2">MENU</h6><button className='p-1.5 rounded-lg bg-gray-800 hover:bg-gray-900'><ChevronLeftIcon className='w-8 align-left'></ChevronLeftIcon></button></div>
 
                 <div className="flex flex-col space-x-4">
-                    <SidebarItem icon={<ClipboardDocumentIcon className='w-6'></ClipboardDocumentIcon>} text={"DASHBOARD"}></SidebarItem>
-                    <SidebarItem icon={<RectangleStackIcon className='w-6'></RectangleStackIcon>} text={"TASKS"}></SidebarItem>
+                    <Link to="/dashboard/">
+                        <SidebarItem icon={<ClipboardDocumentIcon className='w-6'></ClipboardDocumentIcon>} text={"DASHBOARD"}></SidebarItem>
+                    </Link>
+                    <Link to="/tasks/">
+                        <SidebarItem icon={<RectangleStackIcon className='w-6'></RectangleStackIcon>} text={"TASKS"}></SidebarItem>
+                    </Link>
                     {/* {sidebarMenu.map((item) => (
                         <a
                             key={item.name}
