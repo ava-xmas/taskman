@@ -78,6 +78,7 @@ const Navbar = () => {
 
                     {username ? (
                         <div className="absolute inset-y-0 right-0 flex flex-row items-center pr-2 sm:static sm:inset-auto sm:ml-6 sm:pr-0">
+                            <Link to="/friend-request"><img src="https://www.svgrepo.com/show/107838/add-friend.svg" alt="" srcset="" className='w-6 m-3' /></Link>
                             <span className='text-white mr-4'> Hello, {username} </span>
                             <button
                                 type="button"

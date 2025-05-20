@@ -40,6 +40,7 @@ INSTALLED_APPS = [
     'rest_framework',
     'corsheaders',
     'tasks',
+    'friends',
     'home.apps.HomeConfig',
     'rest_framework_simplejwt',
 ]
