@@ -5,6 +5,6 @@ urlpatterns = [
     path('admin/', admin.site.urls),
     path('api/tasks/', include('tasks.api.urls')),
     path('api/home/', include('home.api.urls')),
-    path('api/friend_request/', include('friends.urls')),
+    path('api/friend_request/', include('friends.api.urls')),
     # path('api/', include('core.api.urls')), # if the path starts with api/ then check for matching urls from core/api/urls.py
 ]

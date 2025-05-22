@@ -1,7 +1,7 @@
 # files
 from .api.serializers import *
 from home.models import *
-from .serializers import UserSummarySerializer
+
 
 # django
 from django.contrib.auth import authenticate

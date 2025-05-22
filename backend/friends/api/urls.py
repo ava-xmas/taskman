@@ -1,5 +1,5 @@
 from django.urls import path
-from .views import SendFriendRequestAPIView, AcceptFriendRequestAPIView, RejectFriendRequestAPIView, PendingFriendRequestsAPIView
+from ..views import SendFriendRequestAPIView, AcceptFriendRequestAPIView, RejectFriendRequestAPIView, PendingFriendRequestsAPIView
 
 urlpatterns = [
     path('send/<int:receiver_user_id>/', SendFriendRequestAPIView.as_view(), name='send_friend_request'),

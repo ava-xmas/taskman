@@ -9,7 +9,7 @@ from django.shortcuts import render
 from django.contrib.auth.models import User
 # files
 from .models import Task
-from .serializers import TaskSerializer
+from .serializers import *
 from .permissions import IsOwner
 from .services import get_overdue_tasks, get_due_today, get_due_later, get_due_this_week
 
