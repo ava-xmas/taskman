@@ -16,5 +16,6 @@ class Task(models.Model):
         return self.title
 
 class Colab(models.Model):
+    owner = models.ForeignKey(User, on_delete=models.CASCADE, related_name='owner')
     task = models.ForeignKey(Task, on_delete=models.CASCADE)
-    friend = models.ForeignKey(User, on_delete=models.CASCADE)
+    friend = models.ForeignKey(User, on_delete=models.CASCADE, related_name='colab')

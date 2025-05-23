@@ -1,5 +1,5 @@
 from rest_framework import serializers
-from .models import Task
+from .models import *
 
 class TaskSerializer(serializers.ModelSerializer):
     # Meta is like info or metadata, in this case we're specifying the model to be used
@@ -16,3 +16,8 @@ class TaskSerializer(serializers.ModelSerializer):
         extra_kwargs = {
             'title': {'required': True},
         }
+
+class ColabSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = Colab
+        fields = ['owner', 'task', 'friend']

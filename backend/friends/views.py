@@ -5,6 +5,9 @@ from rest_framework import status
 from django.shortcuts import get_object_or_404
 from django.db.models import Q
 from .models import Friendship, User
+from rest_framework import generics, permissions
+from .serializers import *
+
 
 class SendFriendRequestAPIView(APIView):
     permission_classes = [IsAuthenticated]
@@ -92,3 +95,19 @@ class PendingFriendRequestsAPIView(APIView):
         ]
 
         return Response(data)
+    
+class GetFriends(APIView):
+    permission_classes = [IsAuthenticated]
+
+    def get(self, request):
+        owner = request.user
+        data = []
+        accepted_requests = Friendship.objects.filter((Q(receiver=owner)) | (Q(sender=owner)))
+        for req in accepted_requests:
+            if req.sender == owner:
+                data.append({'id': req.id,'friend': req.receiver.username})
+            elif req.receiver == owner:
+                data.append({'id': req.id,'friend': req.sender.username})
+
+        return Response(data)
+
