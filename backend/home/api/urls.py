@@ -6,5 +6,5 @@ from home.views import *
 urlpatterns = [
     path('token/', JWTTokenObtainPairView.as_view()),
     path('register/', RegisterAPIView.as_view()),
-    path('users/', UserSearchView.as_view(), name='user-search'),
+    path('users/', UserSearchView.as_view()),
 ]

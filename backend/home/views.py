@@ -33,7 +33,7 @@ class RegisterAPIView(generics.CreateAPIView):
 #
 class UserSearchView(generics.ListAPIView):
     serializer_class = UserSummarySerializer
-    permission_classes = [IsAuthenticated]  # Optional, depending on your app
+    permission_classes = [IsAuthenticated]  
     queryset = User.objects.all()
     filter_backends = [SearchFilter]
     search_fields = ['username']

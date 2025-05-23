@@ -77,7 +77,7 @@ class ColabCreateAPIView(generics.GenericAPIView):
 
     def post(self, request, task_id, friend_id):
         task = get_object_or_404(Task, pk=task_id)
-        user_to_add = get_object_or_404(User, username=friend_id) 
+        user_to_add = get_object_or_404(User, id=friend_id) 
         logger.info(task, user_to_add) 
 
         owner = self.request.user     

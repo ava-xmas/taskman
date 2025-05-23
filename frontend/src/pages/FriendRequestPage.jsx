@@ -14,7 +14,9 @@ const inputClass = "py-3 px-2 my-2 w-full bg-gray-600 rounded-lg"
 function FriendRequestPage() {
     const [username, setUsername] = useState("");
     const [errorMessage, setErrorMessage] = useState("");
+    const [pendingFriendRequests, setPendingFriendRequests] = useState([]);
 
+    // function to send friend request using username
     const sendFriendRequest = async (username) => {
         try {
             const token = localStorage.getItem('AUTH_KEY');
@@ -61,9 +63,6 @@ function FriendRequestPage() {
         event.preventDefault();
         sendFriendRequest(username);
     }
-
-
-    const [pendingFriendRequests, setPendingFriendRequests] = useState([]);
 
     const fetchPendingFriendRequests = async () => {
         try {
@@ -143,8 +142,7 @@ function FriendRequestPage() {
 
             const data = await response.json();
             console.log('Friend request rejected: ', data);
-        }
-        catch (error) {
+        } catch (error) {
             console.error("Network or server error: ", error)
             setErrorMessage("An error occured while rejecting the friend requests.")
         }

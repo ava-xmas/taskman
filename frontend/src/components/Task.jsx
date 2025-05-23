@@ -8,7 +8,7 @@ import { useState } from "react";
 const buttonClass = "size-6 m-1 fill-white/50 group-data-hover:fill-white/60";
 
 const TaskComponent = ({ id, title, description, deadlineDate, deadlineTime, defaultOpen = false }) => {
-    let taskId = id;
+    const taskId = id;
 
     // function to handle task deletion
     const handleDelete = async () => {
