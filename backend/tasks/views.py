@@ -107,12 +107,26 @@ class ColabCreateAPIView(generics.GenericAPIView):
     
 
 #show collaborators when user is owner
-class ColabGetDetailView(generics.ListAPIView):
-    permission_classes = [permissions.IsAuthenticated, IsOwner]
-    serializer_class = ColabSerializer
+#class ColabGetDetailView(generics.ListAPIView):
+#    permission_classes = [permissions.IsAuthenticated, IsOwner]
+#    serializer_class = ColabSerializer
+#
+#    def get_queryset(self):
+#        task_id = self.kwargs['task_id']
+#        task = get_object_or_404(Task, pk=task_id)
+#        user = self.request.user
+#        return Colab.objects.filter(owner=user, task=task)
 
-    def get_queryset(self):
+class ColabGetDetailView(APIView):
+    permission_classes = [permissions.IsAuthenticated, IsOwner]
+
+    def get(self, request, *args, **kwargs):
         task_id = self.kwargs['task_id']
         task = get_object_or_404(Task, pk=task_id)
-        user = self.request.user
-        return Colab.objects.filter(owner=user, task=task)
+        owner = self.request.user
+        colabs = Colab.objects.filter(owner=owner, task=task)
+        data = []
+        for req in colabs:
+            data.append({'owner_id':req.owner.id, 'task_id': req.task.id, 'colab_id': req.friend.id})
+
+        return Response(data)
