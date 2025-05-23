@@ -7,12 +7,18 @@ from rest_framework import generics, permissions
 # django
 from django.shortcuts import render
 from django.contrib.auth.models import User
+from django.core.exceptions import PermissionDenied
+from django.shortcuts import get_object_or_404
+from django.db.models import Q
 # files
-from .models import Task
+from .models import *
+from friends.models import *
 from .serializers import *
-from .permissions import IsOwner
+from .permissions import IsOwner, IsFriend
 from .services import get_overdue_tasks, get_due_today, get_due_later, get_due_this_week
 
+import logging
+logger = logging.getLogger(__name__)
 class TaskListCreateAPIView(generics.ListCreateAPIView):
     queryset = Task.objects.all().order_by('-created_at')
     serializer_class = TaskSerializer
@@ -26,6 +32,41 @@ class TaskListCreateAPIView(generics.ListCreateAPIView):
     
     def perform_create(self, serializer):
         serializer.save(owner=self.request.user)
+
+
+class ColabListCreateAPIView(generics.GenericAPIView):
+    permission_classes = [permissions.IsAuthenticated, IsOwner, IsFriend]
+
+    def post(self, request, task_id, friend_id):
+        task = get_object_or_404(Task, pk=task_id)
+        user_to_add = get_object_or_404(User, username=friend_id) 
+        logger.info(task, user_to_add) 
+
+        owner = self.request.user     
+        user = user_to_add 
+
+        if task.owner != self.request.user:
+            raise PermissionDenied("Only the owner can add collaborators.")
+        
+        isFriend =  Friendship.objects.filter(status='accepted').filter(
+            (Q(sender=user) & Q(receiver=owner)) |
+            (Q(sender=owner) & Q(receiver=user))).exists()
+        if isFriend:
+            pass
+        else:
+            raise PermissionDenied("Only the friends of owner can be added.")
+        
+        # Create or get the collaborator record
+        collaboration, created = Colab.objects.get_or_create(
+            task=task,
+            friend=user_to_add
+        )
+        
+        
+        if not created:
+            return Response({"detail": "User is already a collaborator."}, status=status.HTTP_400_BAD_REQUEST)
+
+        return Response({"detail": "Collaborator added successfully."}, status=status.HTTP_201_CREATED)
 
 class TaskDetailView(generics.RetrieveUpdateDestroyAPIView):
     queryset = Task.objects.all()
@@ -59,3 +100,4 @@ class TaskFilterAPIView(APIView):
             'Due This Week': due_this_week_serialized.data,
             'Due Later': due_later_serialized.data,
         })
+

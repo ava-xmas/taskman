@@ -1,15 +1,12 @@
 # files
 from .api.serializers import *
 from home.models import *
-
-
 # django
 from django.contrib.auth import authenticate
 from django.contrib.auth.models import User
 from django.shortcuts import render
 #
 import logging
-
 # rest framework
 from rest_framework.permissions import IsAuthenticated
 from rest_framework.filters import SearchFilter
