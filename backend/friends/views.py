@@ -7,7 +7,6 @@ from django.db.models import Q
 from .models import Friendship, User
 from rest_framework import generics, permissions
 from .serializers import *
-from tasks.permissions import *
 
 class SendFriendRequestAPIView(APIView):
     permission_classes = [IsAuthenticated]
@@ -97,7 +96,7 @@ class PendingFriendRequestsAPIView(APIView):
         return Response(data)
     
 class GetFriends(APIView):
-    permission_classes = [IsAuthenticated, IsOwner]
+    permission_classes = [IsAuthenticated]
 
     def get(self, request):
         owner = request.user
