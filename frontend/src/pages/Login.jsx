@@ -1,12 +1,18 @@
 import ButtonComponent from "../components/Button.jsx";
+import { useNavigate } from "react-router-dom";
+
 function classNames(...classes) {
     return classes.filter(Boolean).join(' ')
 }
 function setJSON(key, value) {
     window.localStorage.setItem(key, value);
 };
+//const routeChange = () =>{ 
+//    
+//}
 function LoginPage() {
     const loginApiUrl = "http://127.0.0.1:8000/api/home/token/";
+    let navigate = useNavigate(); 
     const handleSubmit = async (event) => {
         event.preventDefault();
         const username = event.target.username.value;
@@ -48,8 +54,10 @@ function LoginPage() {
             // save the token and the username
             setJSON('AUTH_KEY', result.access);
             setJSON('USER_NAME', username);
-
             alert("Login Sucsessfull");
+            let path = `/dashboard`; 
+            navigate(path);
+            
         } catch (error) {
             console.error("Network or server error: ", error);
             alert("A network error occured, check console for details.");

@@ -1,5 +1,6 @@
 // import axios from "axios";
 import ButtonComponent from "../components/Button.jsx";
+import { useNavigate } from "react-router-dom";
 
 function classNames(...classes) {
     return classes.filter(Boolean).join(' ');
@@ -9,7 +10,7 @@ function setJSON(key, value) {
 };
 function SignupPage() {
     const registerApiUrl = "http://127.0.0.1:8000/api/home/register/";
-
+    let navigate = useNavigate(); 
     const handleSubmit = async (event) => {
         event.preventDefault();
         const username = event.target.username.value;
@@ -38,8 +39,12 @@ function SignupPage() {
                 //console.log('hello')
                 const result = await response.json();
                 // storing AUTH_KEY in local storage
-                setJSON('AUTH_KEY', result.access)
+                //setJSON('AUTH_KEY', result.access)
                 alert('Regsitration successful');
+                
+                let path = `/login`; 
+                navigate(path);
+                
 
             }
         } catch (error) {

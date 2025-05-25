@@ -1,7 +1,7 @@
 import { Disclosure, DisclosureButton, DisclosurePanel, Menu, MenuButton, MenuItem, MenuItems } from '@headlessui/react';
 import { Bars3Icon, BellIcon, XMarkIcon } from '@heroicons/react/24/outline';
 import Button from './Button.jsx';
-import { useLocation, Link } from 'react-router-dom';
+import { useLocation, Link, useNavigate } from 'react-router-dom';
 import React, { useEffect, useState } from 'react';
 
 // navigation items
@@ -16,6 +16,7 @@ function classNames(...classes) {
     return classes.filter(Boolean).join(' ')
 }
 
+
 const buttonClassName = "rounded-md p-2 m-2 px-3 hover:bg-gray-700";
 
 const Navbar = () => {
@@ -28,6 +29,12 @@ const Navbar = () => {
     const [title, setTitle] = useState("");
     const [username, setUsername] = useState(null);
 
+    let navigate = useNavigate(); 
+    function logout() {
+        localStorage.clear();
+        alert('Logged out! Redirecting to login page.')
+    }
+    
     useEffect(() => {
         if (location.pathname === "/") {
             setTitle("");
@@ -124,6 +131,11 @@ const Navbar = () => {
                                     <MenuItem>
                                         <a
                                             href="#"
+                                            onClick={(e) => {
+                                                e.preventDefault();
+                                                logout(); // your logout function
+                                                navigate("/login"); // redirect
+                                            }}
                                             className="block px-4 py-2 text-sm text-gray-700 data-focus:bg-gray-100 data-focus:outline-hidden"
                                         >
                                             Sign out
