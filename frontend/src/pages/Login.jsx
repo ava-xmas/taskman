@@ -1,11 +1,105 @@
+import { useEffect } from "react";
+import { useAuth } from "../app/Provider.jsx";
 import ButtonComponent from "../components/Button.jsx";
+import { replace, useLocation, useNavigate } from "react-router-dom";
+
+const inputClass = "py-3 px-2 my-2 w-full bg-gray-600 rounded-lg"
+
+const LoginPage = () => {
+    // auth
+    const { auth, setAuth } = useAuth();
+
+    // logged in users should not be able to access this page
+    const navigate = useNavigate();
+    useEffect(() => {
+        if (auth.token) {
+            navigate('/dashboard', { replace: true });
+        }
+    }, [])
+
+    // page related stuff
+    const [authResponse, setAuthResponse] = useState(null);
+    const [login, setLogin] = useState("");
+
+    const onChangeLogin = (e) => {
+        e.preventDefault();
+        const username = e.target.value;
+        setLogin(username);
+    };
+
+    const [password, setPassword] = useState("");
+    const onChangePassword = (e) => {
+        const password = e.target.value;
+        setPassword(password);
+    };
+
+    const postUser = async (user) => {
+        try {
+            const loginApiUrl = "http://127.0.0.1:8000/api/home/token/";
+            const response = await fetch(loginApiUrl, {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+                body: JSON.stringify({ username: login, password: password, })
+            })
+
+            if (!response.ok) {
+                const errorMessage = await response.json();
+                setAuthResponse("An error occurred while trying to log in: ", errorMessage);
+                return null;
+            } else {
+                const data = await response.json();
+                setAuthResponse("Logged in successfully.")
+                return data;
+            }
+        } catch (e) {
+            console.log("Caught an error while trying to log in: ", e)
+        }
+    }
+
+    const onLogin = (e) => {
+        e.preventDefault();
+
+        const user = {
+            login: login,
+            password: password,
+        };
+
+        (async () => {
+            const data = await postUser(user);
+            const token = data.access;
+            setAuth({ token: token });
+            localStorage.setItem("username", login);
+        })
+    };
+
+    return (
+        <>
+            <div className="flex flex-col justify-center items-center text-md">
+                <form action="POST" onSubmit={onLogin}>
+                    <label htmlFor="username">Username</label>
+                    <input type="text" name="username" className={inputClass} value={login} onChange={onChangeLogin} />
+                    <label htmlFor="password">Password</label>
+                    <input type="password" name="password" className={inputClass} value={password} onChange={onChangePassword} />
+                    <span className="text-sm text-black/70">{authResponse}</span>
+                    <span className="text-sm text-blue-800 text-right">Not a user? Sign up instead.</span>
+                    <button>Log in</button>
+                </form>
+            </div>
+        </>
+    )
+}
+
 function classNames(...classes) {
     return classes.filter(Boolean).join(' ')
 }
+
 function setJSON(key, value) {
     window.localStorage.setItem(key, value);
 };
-function LoginPage() {
+
+function Login() {
     const loginApiUrl = "http://127.0.0.1:8000/api/home/token/";
     const handleSubmit = async (event) => {
         event.preventDefault();
@@ -82,4 +176,5 @@ function LoginPage() {
         </>
     )
 }
+
 export default LoginPage

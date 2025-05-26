@@ -3,6 +3,7 @@ import { Bars3Icon, BellIcon, XMarkIcon } from '@heroicons/react/24/outline';
 import Button from './Button.jsx';
 import { useLocation, Link } from 'react-router-dom';
 import React, { useEffect, useState } from 'react';
+import { useAuth } from '../app/Provider.jsx';
 
 // navigation items
 const navigation = [
@@ -19,6 +20,8 @@ function classNames(...classes) {
 const buttonClassName = "rounded-md p-2 m-2 px-3 hover:bg-gray-700";
 
 const Navbar = () => {
+    // auth
+    const { auth, setAuth } = useAuth();
 
     // creating an instance of location to detect the route
     const location = useLocation();
@@ -76,7 +79,7 @@ const Navbar = () => {
 
                     {/* conditional, displays diff things based on if the user is logged in or not */}
 
-                    {username ? (
+                    {auth.token ? (
                         <div className="absolute inset-y-0 right-0 flex flex-row items-center pr-2 sm:static sm:inset-auto sm:ml-6 sm:pr-0">
                             <Link to="/friend-request"><img src="https://www.svgrepo.com/show/107838/add-friend.svg" alt="" srcset="" className='w-6 m-3' /></Link>
                             <span className='text-white mr-4'> Hello, {username} </span>
