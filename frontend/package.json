@@ -16,6 +16,7 @@
     "@tailwindcss/vite": "^4.1.7",
     "axios": "^1.9.0",
     "flowbite-react": "^0.11.7",
+    "lucide-react": "^0.511.0",
     "patch-package": "^8.0.0",
     "postinstall-postinstall": "^2.1.0",
     "react": "^19.0.0",
