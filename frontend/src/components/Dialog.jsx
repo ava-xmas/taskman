@@ -24,7 +24,7 @@ const CollaboratorDialog = (props) => {
                 // Check matches
                 for (let i = 0; i < friendsList.length; i++) {
                     for (let j = 0; j < collabList.length; j++) {
-                        console.log(`${friendsList[i].friend_id} is related to ${collabList[j].colab_id}`);
+                        console.log(`${friendsList[i].friend_user_id} is related to ${collabList[j].colab_id}`);
                     }
                 }
 
