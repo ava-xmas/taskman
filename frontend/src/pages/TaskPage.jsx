@@ -15,11 +15,11 @@ const AUTH_KEY = window.localStorage.getItem('AUTH_KEY');
 const IS_ADMIN = window.localStorage.getItem('USER_NAME');
 
 const TaskPage = () => {
-    let navigate = useNavigate(); 
-    if (!AUTH_KEY || IS_ADMIN !== true) {
-            alert('Access denied. Please log in to access this page.');
-            navigate('/login') // Redirect to login page
-    } else {
+    //let navigate = useNavigate(); 
+    //if (!AUTH_KEY || IS_ADMIN !== true) {
+    //        alert('Access denied. Please log in to access this page.');
+    //        navigate('/login') // Redirect to login page
+    //} else {
     // form stuff
         const [title, setTitle] = useState("");
         const [description, setDescription] = useState("");
@@ -257,7 +257,7 @@ const TaskPage = () => {
                 </div>
             </>
         );
-    };
+    
 }   
 
 export default TaskPage

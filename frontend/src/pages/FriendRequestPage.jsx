@@ -16,19 +16,14 @@ const IS_ADMIN = window.localStorage.getItem('USER_NAME');
 const inputClass = "py-3 px-2 my-2 w-full bg-gray-600 rounded-lg"
 
 function FriendRequestPage() {
-    let navigate = useNavigate(); 
-    if (!AUTH_KEY || IS_ADMIN !== true) {
-            alert('Access denied. Please log in to access this page.');
-            navigate('/login') // Redirect to login page
-    } else {
         const [username, setUsername] = useState("");
         const [errorMessage, setErrorMessage] = useState("");
         const [pendingFriendRequests, setPendingFriendRequests] = useState([]);
-
+        const token = localStorage.getItem('AUTH_KEY');
         // function to send friend request using username
         const sendFriendRequest = async (username) => {
             try {
-                const token = localStorage.getItem('AUTH_KEY');
+                
 
                 const res = await fetch(`http://127.0.0.1:8000/api/home/users/?search=${username}`, {
                     headers: {
@@ -223,6 +218,6 @@ function FriendRequestPage() {
             </div>
             </>
         )
-    }
+    
 }   
 export default FriendRequestPage

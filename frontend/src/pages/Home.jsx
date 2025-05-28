@@ -1,6 +1,5 @@
 import React, { useState } from 'react';
 import { Search, Star, Calendar, MessageSquare, Settings, User, ChevronLeft, ChevronRight } from 'lucide-react';
-import SignupPage from './Signup';
 import { useLocation, Link, useNavigate } from 'react-router-dom';
 
 const HomePage = () => {

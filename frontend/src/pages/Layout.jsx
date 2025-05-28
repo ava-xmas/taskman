@@ -5,11 +5,11 @@ import { useNavigate } from "react-router-dom";
 let isAuthorized = true;
 
 const AUTH_KEY = window.localStorage.getItem('AUTH_KEY');
-const IS_ADMIN = window.localStorage.getItem('USER_NAME');
+const USER_NAME = window.localStorage.getItem('USER_NAME');
 
 const Layout = ({ children }) => {
     let navigate = useNavigate(); 
-    if (!AUTH_KEY || IS_ADMIN !== true) {
+    if (!AUTH_KEY || !USER_NAME) {
             alert('Access denied. Please log in to access this page.');
             navigate('/login') // Redirect to login page
     } else {
